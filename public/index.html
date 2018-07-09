@@ -7,6 +7,11 @@
 <script src="js/app.js" charset="utf-8"></script>
 </head>
 <body ng-controller="MyController as ctrl">
-{{ctrl.foo}}
+  <form ng-submit="ctrl.createTodo()">
+  {{ctrl.description}} - {{ctrl.complete}}
+  <input type="text" ng-model="ctrl.description" placeholder="description"/>
+  Complete: <input type="checkbox" ng-model="ctrl.complete"/>
+  <input type="submit" value="Create New Todo Item"/>
+  </form>
 </body>
 </html>
