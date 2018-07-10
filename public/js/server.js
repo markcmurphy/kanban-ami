@@ -10,6 +10,7 @@ app.listen(3000, () => {
 app.use(express.static('public'));
 
 
+
 mongoose.connect('mongodb://localhost:27017/kanban-ami');
 
 mongoose.connection.once('open', () => {

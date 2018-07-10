@@ -2,13 +2,12 @@ const app = angular.module('MyApp', []);
 
 app.controller('MyController', ['$http', function($http){
 
-this.createTodo = function(){
+this.createFriend = function(){
 $http({
 method:'POST',
-url: '/todos',
+url: '/friends',
 data: {
-description: this.description,
-complete: this.complete
+name: this.name
 }
 }).then(function(response){
 console.log(response);
@@ -16,6 +15,16 @@ console.log(response);
 console.log('error');
 });
 }
+
+this.getFriend = () => {
+    $http({
+        method: 'GET',
+        url: '/friends'
+      }).then(response => {
+        this.friends = response.data;
+      })
+      .catch(err => console.log(err));
+  }
 
 
 // end of MyController
