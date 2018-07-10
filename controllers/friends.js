@@ -8,3 +8,14 @@ router.get('/', (req, res)=> {
     res.json(foundFriends);
   });
 });
+
+//Create friend
+router.post('/', (req, res)=>{
+  console.log(req.body);
+
+  Friends.create(req.body, (err, createdFriend)=>{
+    res.json(createdFriend);
+  });
+});
+
+module.exports = router;
