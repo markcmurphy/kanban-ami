@@ -1,9 +1,9 @@
 const app = angular.module('MyApp', []);
 
-app.controller('MyController', ['$http', function($http){
+app.controller('MyController', ['$http', function($http) {
   const controller = this;
   this.friends = {};
-this.getFriend = () => {
+  this.getFriends = () => {
     $http({
         method: 'GET',
         url: '/friends'
@@ -14,21 +14,37 @@ this.getFriend = () => {
       .catch(err => console.log(err));
   }
 
-this.createFriend = function() {
+  //create friend
+  this.createFriend = function() {
+    $http({
+        method: 'POST',
+        url: '/friends',
+        data: {
+          Id: this._id,
+          first_name: this.first_name
+        }
+      }).then(response => {
+        console.log(response.data);
+        controller.formdata = {};
+        this.getFriends();
+      })
+      .catch(err => console.log(err));
+  }
+
+  // delete friend
+  this.deleteFriend = (friend) => {
       $http({
-          method: 'POST',
-          url: '/friends',
-          data: {
-            Id: this._id,
-            first_name: this.first_name
-          }
-        }).then(response => {
-          console.log(response.data);
-          controller.formdata = {};
-          this.getFriend();
-        })
-        .catch(err => console.log(err));
+        method: 'DELETE',
+        url: '/friends/' + friend._id
+      }).then(
+        function(res) {
+          controller.getFriends();
+        },
+        function(err) {
+          console.log(err);
+        }
+      );
     }
 
-// end of MyController
+    // end of MyController
 }]);

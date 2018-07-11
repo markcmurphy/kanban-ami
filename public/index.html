@@ -11,7 +11,9 @@
   <div class="grid-container well" ng-init="ctrl.getFriend()">
     <div class="grid-product">
   <ul ng-repeat="friend in ctrl.friends track by $index">
-    <li><h1>Name: {{friend.first_name}}</h1></li>
+    <li><h1>Name: {{friend.first_name}}</h1>
+        <button class="btn btn-primary btn-sm" ng-click="ctrl.deleteFriend(friend)">delete</button>
+    </li>
   </ul>
 </div>
 </div>
