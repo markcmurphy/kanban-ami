@@ -3,6 +3,8 @@ const app = angular.module('MyApp', []);
 app.controller('MyController', ['$http', function($http) {
   const controller = this;
   this.friends = {};
+
+  //get list of friends
   this.getFriends = () => {
     $http({
         method: 'GET',
