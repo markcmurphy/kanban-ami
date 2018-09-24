@@ -3,6 +3,7 @@ const app = angular.module('MyApp', []);
 app.controller('MyController', ['$http', function($http) {
   const controller = this;
   this.friends = {};
+  this.lists = {};
 
   //get list of friends
   this.getFriends = () => {
@@ -47,6 +48,50 @@ app.controller('MyController', ['$http', function($http) {
         }
       );
     }
+
+    //get list of listss
+    this.getLists = () => {
+      $http({
+          method: 'GET',
+          url: '/lists'
+        }).then(response => {
+          this.lists = response.data;
+          console.log(response.data);
+        })
+        .catch(err => console.log(err));
+    }
+
+    //create list
+    this.createList = function() {
+      $http({
+          method: 'POST',
+          url: '/lists',
+          data: {
+            Id: this._id,
+            first_name: this.title
+          }
+        }).then(response => {
+          console.log(response.data);
+          controller.formdata = {};
+          this.getLists();
+        })
+        .catch(err => console.log(err));
+    }
+
+    // delete list
+    this.deleteList = (list) => {
+        $http({
+          method: 'DELETE',
+          url: '/lists/' + list._id
+        }).then(
+          function(res) {
+            controller.getLists();
+          },
+          function(err) {
+            console.log(err);
+          }
+        );
+      }
 
     // end of MyController
 }]);
