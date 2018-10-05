@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
-const List = require('./lists.js');
+// const List = require('./lists.js');
 const Friend = require('./friends.js');
+// const FriendSchema = require('./friends').schema;
 
 const listSchema = mongoose.Schema({
   title: String,

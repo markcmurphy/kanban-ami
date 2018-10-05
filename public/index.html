@@ -24,9 +24,11 @@
 
   <form ng-submit="ctrl.createFriend()">
     {{ctrl.first_name}}
+
+    {{ctrl.formdata.listId}}
     <input type="text" ng-model="ctrl.first_name" placeholder="first name" />
-    <select ng-model="ctrl.formdata.list_id" ng-options="list._id as list.title for list in ctrl.lists">
-  </select>
+    <select ng-model="ctrl.formdata.listId" ng-options="list._id as list.title for list in ctrl.lists">
+    </select>
     <input type="submit" value="Create New Friend" />
   </form>
 
