@@ -4,6 +4,7 @@ app.controller('MyController', ['$http', function($http) {
   const controller = this;
   this.friends = {};
   this.lists = {};
+  this.list = {};
 
   //get list of friends
   this.getFriends = () => {
@@ -24,12 +25,15 @@ app.controller('MyController', ['$http', function($http) {
         url: '/friends',
         data: {
           Id: this._id,
-          first_name: this.first_name
+          first_name: this.first_name,
+          list: this.list,
+          list_id: this.formdata.list_id
         }
       }).then(response => {
         console.log(response.data);
         controller.formdata = {};
         this.getFriends();
+        this.getLists();
       })
       .catch(err => console.log(err));
   }
@@ -49,7 +53,7 @@ app.controller('MyController', ['$http', function($http) {
       );
     }
 
-    //get list of listss
+    //get list of lists
     this.getLists = () => {
       $http({
           method: 'GET',
@@ -68,12 +72,13 @@ app.controller('MyController', ['$http', function($http) {
           url: '/lists',
           data: {
             Id: this._id,
-            first_name: this.title
+            title: this.title
           }
         }).then(response => {
           console.log(response.data);
           controller.formdata = {};
           this.getLists();
+          this.getFriends();
         })
         .catch(err => console.log(err));
     }

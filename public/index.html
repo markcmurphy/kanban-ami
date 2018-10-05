@@ -10,8 +10,9 @@
 </head>
 
 <body ng-controller="MyController as ctrl">
-  <div class="grid-container well" ng-init="ctrl.getFriends()">
-    <div class="grid-friend">
+
+  <div ng-init="ctrl.getFriends()">
+    <div>
       <ul ng-repeat="friend in ctrl.friends track by $index">
         <li>
           <h1>Name: {{friend.first_name}}</h1>
@@ -24,8 +25,30 @@
   <form ng-submit="ctrl.createFriend()">
     {{ctrl.first_name}}
     <input type="text" ng-model="ctrl.first_name" placeholder="first name" />
+    <select ng-model="ctrl.formdata.list_id" ng-options="list._id as list.title for list in ctrl.lists">
+  </select>
     <input type="submit" value="Create New Friend" />
   </form>
+
+  <div ng-init="ctrl.getLists()">
+    <div>
+      <ul ng-repeat="list in ctrl.lists track by $index">
+        <li>
+          <h1>Title: {{list.title}}</h1>
+          <h3>{{list.friends}}</h3>
+
+          <button class="btn btn-primary btn-sm" ng-click="ctrl.deleteList(list)">delete</button>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <form ng-submit="ctrl.createList()">
+    {{ctrl.title}}
+    <input type="text" ng-model="ctrl.title" placeholder="list title" />
+    <input type="submit" value="Create New List" />
+  </form>
+
 </body>
 
 </html>

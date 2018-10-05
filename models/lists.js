@@ -1,9 +1,10 @@
 const mongoose = require('mongoose');
 const List = require('./lists.js');
+const Friend = require('./friends.js');
 
 const listSchema = mongoose.Schema({
   title: String,
-  friends: String
+  friends: [Friend.schema]
 })
 
 const Lists = mongoose.model('List', listSchema);
