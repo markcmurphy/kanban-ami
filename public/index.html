@@ -24,7 +24,6 @@
 
   <form ng-submit="ctrl.createFriend()">
     {{ctrl.first_name}}
-
     {{ctrl.formdata.listId}}
     <input type="text" ng-model="ctrl.first_name" placeholder="first name" />
     <select ng-model="ctrl.formdata.listId" ng-options="list._id as list.title for list in ctrl.lists">
@@ -38,7 +37,6 @@
         <li>
           <h1>Title: {{list.title}}</h1>
           <h3>{{list.friends}}</h3>
-
           <button class="btn btn-primary btn-sm" ng-click="ctrl.deleteList(list)">delete</button>
         </li>
       </ul>
@@ -46,9 +44,27 @@
   </div>
 
   <form ng-submit="ctrl.createList()">
-    {{ctrl.title}}
     <input type="text" ng-model="ctrl.title" placeholder="list title" />
-    <input type="submit" value="Create New List" />
+    <select ng-model="ctrl.formdata.boardId" ng-options="board._id as board.boardTitle for board in ctrl.boards">
+      <input type="submit" value="Create New List" />
+  </form>
+
+
+  <div ng-init="ctrl.getBoards()">
+    <div>
+      <ul ng-repeat="board in ctrl.boards track by $index">
+        <li>
+          <h1>Title: {{board.boardTitle}}</h1>
+          <h3>{{board.lists}}</h3>
+          <button class="btn btn-primary btn-sm" ng-click="ctrl.deleteBoard(board)">delete</button>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <form ng-submit="ctrl.createBoard()">
+    <input type="text" ng-model="ctrl.boardTitle" placeholder="board title" />
+    <input type="submit" value="Create New Board" />
   </form>
 
 </body>

@@ -6,6 +6,8 @@ app.controller('MyController', ['$http', function($http) {
   this.formdata = {};
   this.lists = {};
   this.list = {};
+  this.board = {};
+  this.boards = {};
 
   //get list of friends
   this.getFriends = () => {
@@ -73,13 +75,16 @@ app.controller('MyController', ['$http', function($http) {
         url: '/lists',
         data: {
           Id: this._id,
-          title: this.title
+          title: this.title,
+          board: this.board,
+          boardId: this.formdata.boardId
         }
       }).then(response => {
         console.log(response.data);
         controller.formdata = {};
         this.getLists();
         this.getFriends();
+        this.getBoards();
       })
       .catch(err => console.log(err));
   }
@@ -92,6 +97,53 @@ app.controller('MyController', ['$http', function($http) {
     }).then(
       function(res) {
         controller.getLists();
+      },
+      function(err) {
+        console.log(err);
+      }
+    );
+  }
+
+
+  //get list of boards
+  this.getBoards = () => {
+    $http({
+        method: 'GET',
+        url: '/boards'
+      }).then(response => {
+        this.boards = response.data;
+        console.log(response.data);
+      })
+      .catch(err => console.log(err));
+  }
+
+  //create board
+  this.createBoard = function() {
+    $http({
+        method: 'POST',
+        url: '/boards',
+        data: {
+          Id: this._id,
+          boardTitle: this.boardTitle
+        }
+      }).then(response => {
+        console.log(response.data);
+        controller.formdata = {};
+        this.getBoards();
+        this.getLists();
+        this.getFriends();
+      })
+      .catch(err => console.log(err));
+  }
+
+  // delete board
+  this.deleteBoard = (board) => {
+    $http({
+      method: 'DELETE',
+      url: '/boards/' + board._id
+    }).then(
+      function(res) {
+        controller.getBoards();
       },
       function(err) {
         console.log(err);

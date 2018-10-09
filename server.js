@@ -13,6 +13,9 @@ app.use('/friends', friendsController);
 const listsController = require('./controllers/lists.js');
 app.use('/lists', listsController);
 
+const boardsController = require('./controllers/boards.js');
+app.use('/boards', boardsController);
+
 
 app.listen(3000, () => {
   console.log('listening');
